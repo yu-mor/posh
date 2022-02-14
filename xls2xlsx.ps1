@@ -54,7 +54,7 @@ Get-ChildItem -PATH $dir -include "*.xls" -Recurse | Where-Object { ($_.Creation
     #правим \xl\drawings\_rels\*.xml emf->png
     #правим \xl\drawings\*.xml что именно?)))
 
-    #compress-archive -path ($dir+"xls2xlsx\xl") -destinationpath ($_.DirectoryName+"\"+$_.BaseName+".zip") -update #сука, не заменяет файлы, а добавляет
+    #compress-archive -path ($dir+"xls2xlsx\xl") -destinationpath ($_.DirectoryName+"\"+$_.BaseName+".zip") -update #зараза, не заменяет файлы, а добавляет
     &'c:\Program Files\7-Zip\7z.exe' 'u',($_.DirectoryName+"\"+$_.BaseName+".zip"), ($dir+"xls2xlsx\xl"),' *.png -r'
     Remove-Item ($dir+"xls2xlsx") -Recurse
     Rename-Item ($_.DirectoryName+"\"+$_.BaseName+".zip") ($_.BaseName+".xlsx") -Force
