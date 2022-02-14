@@ -1,29 +1,33 @@
-#!!!!!!!!!!!!!!!!!!!!сброс!!!!!!!!!!!!!! 
-#‘фио или логин’
-#todo: убрать на тонких требование смены
-$string="Введи фио пользователя или часть (например, мор ю). Можно и логин или его начальную часть (например, mor). Кому СБРААААСЫВАЕМ?"
+#!!!!!!!!!!!!!!!!!!!!СЃР±СЂРѕСЃ!!!!!!!!!!!!!! 
+#вЂС„РёРѕ РёР»Рё Р»РѕРіРёРЅвЂ™
+
+$string="Р’РІРµРґРё С„РёРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РёР»Рё С‡Р°СЃС‚СЊ (РЅР°РїСЂРёРјРµСЂ, РјРѕСЂ СЋ). РњРѕР¶РЅРѕ Рё Р»РѕРіРёРЅ РёР»Рё РµРіРѕ РЅР°С‡Р°Р»СЊРЅСѓСЋ С‡Р°СЃС‚СЊ (РЅР°РїСЂРёРјРµСЂ, mor). РљРѕРјСѓ РЎР‘Р РђРђРђРђРЎР«Р’РђР•Рњ?"
 $fio = Read-Host $string 
 if($fio.Contains(' ')){
 #fio 
 $fio_name=$fio.replace(" ","* ")+"*"
 get-aduser -Filter {name -like $fio_name}|%{
     #Write-Host $_.SamAccountName $_.Name
-    $Action= Read-Host ("Сбрасываем "+$_.SamAccountName +" " +$_.Name+" (y/N)?")
+    $Action= Read-Host ("РЎР±СЂР°СЃС‹РІР°РµРј "+$_.SamAccountName +" " +$_.Name+" (y/N)?")
     if ($Action="y"){
-        Set-ADAccountPassword -Identity $_ -Reset -NewPassword (ConvertTo-SecureString -AsPlainText “P@ssw0rd” -Force -Verbose)
+        #РЅРµ СѓСЃРїРµРІР°РµРІР°РµС‚ РґРѕ ChangePasswordAtLogon $true
+        #Set-ADUser -Identity $_ -PasswordNeverExpires $false
+        Set-ADAccountPassword -Identity $_ -Reset -NewPassword (ConvertTo-SecureString -AsPlainText вЂњ123qweASDвЂќ -Force -Verbose)
         Unlock-ADAccount -Identity $_
         Set-ADUser -Identity $_ -ChangePasswordAtLogon $true
         }
     }
 }
 Else{
-#username пока не отлаживал
+#username
 $fio_username=$fio+"*"
 get-aduser -Filter {SamAccountName -like $fio_username}|%{
     #Write-Host $_.SamAccountName $_.Name
-    $Action= Read-Host ("Сбрасываем "+$_.SamAccountName +" " +$_.Name+" (y/N)?")
+    $Action= Read-Host ("РЎР±СЂР°СЃС‹РІР°РµРј "+$_.SamAccountName +" " +$_.Name+" (y/N)?")
     if ($Action="y"){
-        Set-ADAccountPassword -Identity $_ -Reset -NewPassword (ConvertTo-SecureString -AsPlainText “P@ssw0rd” -Force -Verbose)
+        #РЅРµ СѓСЃРїРµРІР°РµРІР°РµС‚ РґРѕ ChangePasswordAtLogon $true
+        #Set-ADUser -Identity $_ -PasswordNeverExpires $false
+        Set-ADAccountPassword -Identity $_ -Reset -NewPassword (ConvertTo-SecureString -AsPlainText вЂњ123qweASDвЂќ -Force -Verbose)
         Unlock-ADAccount -Identity $_
         Set-ADUser -Identity $_ -ChangePasswordAtLogon $true
         }
